@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['add'])) {
   $produktUid = uniqid();
   $produktName = $_POST['produktName'];
   $beschreibung = $_POST['beschreibung'];
@@ -9,8 +9,6 @@ if (isset($_POST['submit'])) {
   $gewicht = $_POST['gewicht'];
   $kategorie = $_POST['kategorie'];
   $zusatzInfos = $_POST['zusatzInfos'];
-
-
 
 
   include "dbh.inc.php";
@@ -37,7 +35,7 @@ if (isset($_POST['submit'])) {
 
     mysqli_query($conn, $sql3);
   }
-
-  header("Location: ../produktliste.php");
-  exit();
 }
+
+header("Location: ../shopliste.php");
+exit();

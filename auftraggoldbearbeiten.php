@@ -2,7 +2,26 @@
 session_start();
 if (!isset($_SESSION["personalId"])) {
   include './login.php';
-} else { ?>
+} else {
+
+  include "includes/dbh.inc.php";
+
+
+  $role = $_GET['role'];
+  $id = $_GET['id'];
+  $vorname = $_GET['vorname'];
+  $nachname = $_GET['nachname'];
+  $email = $_GET['email'];
+  $telefonnummer = $_GET['telefonnummer'];
+  $adresse = $_GET['adresse'];
+  $plz = $_GET['plz'];
+  $stadt = $_GET['stadt'];
+  $auftragNum = $_GET['auftragNum'];
+  $versandArt = $_GET['versandArt'];
+  $gesamtBetrag = $_GET['gesamtBetrag'];
+  $status = $_GET['status'];
+
+?>
 
 <!doctype html>
 <html lang="de" class="semi-dark">
@@ -37,7 +56,7 @@ if (!isset($_SESSION["personalId"])) {
                     <ion-icon name="home-outline"></ion-icon>
                   </a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Auftrag Nr: 0000 </li>
+                <li class="breadcrumb-item active" aria-current="page">Auftrag Nr: <?= $auftragNum ?> </li>
               </ol>
             </nav>
           </div>
@@ -56,7 +75,7 @@ if (!isset($_SESSION["personalId"])) {
                   <div class="d-flex align-items-center">
                     <div class="">
                       <p class="mb-1">Vor-/Nachname</p>
-                      <h5 class="mb-0 text-dark">Oliver Schnur</h5>
+                      <h5 class="mb-0 text-dark"><?= $vorname . ' / ' . $nachname ?></h5>
                     </div>
                     <div class="ms-auto text-dark fs-2">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -76,7 +95,7 @@ if (!isset($_SESSION["personalId"])) {
                   <div class="d-flex align-items-center">
                     <div class="">
                       <p class="mb-1">Email</p>
-                      <h5 class="mb-0 text-dark">o.schnur@schnur-partner.de</h5>
+                      <h5 class="mb-0 text-dark"><?= $email ?></h5>
                     </div>
                     <div class="ms-auto text-dark fs-2">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -117,7 +136,7 @@ if (!isset($_SESSION["personalId"])) {
                   <div class="d-flex align-items-center">
                     <div class="">
                       <p class="mb-1">AutragNr.</p>
-                      <h5 class="mb-0 text-dark">INV24-673082</h5>
+                      <h5 class="mb-0 text-dark"><?= $auftragNum ?></h5>
                     </div>
                     <div class="ms-auto text-dark fs-2">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -145,7 +164,7 @@ if (!isset($_SESSION["personalId"])) {
                   <div class="d-flex align-items-center">
                     <div class="">
                       <p class="mb-1">Adresse</p>
-                      <h5 class="mb-0 text-dark">Gruitener Str 68, 42327 Wuppertal</h5>
+                      <h5 class="mb-0 text-dark"><?= $adresse . ", " . $plz . " " . $stadt ?></h5>
                     </div>
                     <div class="ms-auto text-dark fs-2">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -191,7 +210,7 @@ if (!isset($_SESSION["personalId"])) {
                   <div class="d-flex align-items-center">
                     <div class="">
                       <p class="mb-1 text-white">Vorläfige Betrag</p>
-                      <h4 class="mb-0 text-white">12932,80 €</h4>
+                      <h4 class="mb-0 text-white"><?= $gesamtBetrag ?></h4>
                     </div>
                     <div class="ms-auto text-white fs-2">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -214,7 +233,7 @@ if (!isset($_SESSION["personalId"])) {
                   <div class="d-flex align-items-center">
                     <div class="">
                       <p class="mb-1 text-white">Versand Art</p>
-                      <h4 class="mb-0 text-white">Werttransport</h4>
+                      <h4 class="mb-0 text-white"><?= $versandArt ?></h4>
                     </div>
                     <div class="ms-auto text-white fs-2">
                       <ion-icon name="leaf-sharp"></ion-icon>
@@ -238,7 +257,7 @@ if (!isset($_SESSION["personalId"])) {
           <div class="card">
             <div class="card-body">
               <div class="p-4 border rounded">
-                <form class="row g-3 needs-validation" novalidate>
+                <form action="includes/goldAnkfRechnung.inc.php" method="GET" class="row g-3 needs-validation">
 
                   <div class="col-md-6">
                     <label for="validationCustom03" class="form-label">Gold</label>
@@ -256,44 +275,19 @@ if (!isset($_SESSION["personalId"])) {
 
                   <div class="col-md-3">
                     <label for="validationCustom05" class="form-label">Menge</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
+                    <input type="text" class="form-control" placeholder="Menge in (g)" name="goldMenge">
                   </div>
 
                   <div class="col-md-3">
                     <label for="validationCustom05" class="form-label">Kurs</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
+                    <input type="text" class="form-control" placeholder="Kurs in (€)" name="goldKurs">
                   </div>
-
-                  <div class="col-md-6">
-                    <label for="validationCustom03" class="form-label">Gold</label>
-                    <select class="form-select" id="inlineFormCustomSelect" name="gold">
-                      <option value="" selected>Bitte auswählen...</option>
-                      <option value="999.9er Feingold">999.9er Feingold</option>
-                      <option value="986er Gold">986er Gold</option>
-                      <option value="916er Gold">916er Gold</option>
-                      <option value="900er Gold">900er Gold</option>
-                      <option value="3750er Gold">750er Gold</option>
-                      <option value="585er Gold">585er Gold</option>
-                      <option value="333er Gold">333er Gold</option>
-                    </select>
-                  </div>
-
-                  <div class="col-md-3">
-                    <label for="validationCustom05" class="form-label">Menge</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
-                  </div>
-
-                  <div class="col-md-3">
-                    <label for="validationCustom05" class="form-label">Kurs</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
-                  </div>
-
 
 
 
                   <div class="col-md-6">
                     <label for="validationCustom03" class="form-label">Silber</label>
-                    <select class="form-select" id="inlineFormCustomSelect" name="gold">
+                    <select class="form-select" id="inlineFormCustomSelect" name="silber">
                       <option value="" selected>Bitte auswählen...</option>
                       <option value="999.9er Feinsilber">999.9er Feinsilber</option>
                       <option value="925er Silber">925er Silber</option>
@@ -307,42 +301,19 @@ if (!isset($_SESSION["personalId"])) {
 
                   <div class="col-md-3">
                     <label for="validationCustom05" class="form-label">Menge</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
+                    <input type="text" class="form-control" placeholder="Menge in (g) " name="silberMenge">
                   </div>
 
                   <div class="col-md-3">
                     <label for="validationCustom05" class="form-label">Kurs</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
+                    <input type="text" class="form-control" placeholder="Kurs in (€) " name="silberKurs">
                   </div>
 
-                  <div class="col-md-6">
-                    <label for="validationCustom03" class="form-label">Silber</label>
-                    <select class="form-select" id="inlineFormCustomSelect" name="gold">
-                      <option value="" selected>Bitte auswählen...</option>
-                      <option value="999.9er Feinsilber">999.9er Feinsilber</option>
-                      <option value="925er Silber">925er Silber</option>
-                      <option value="900er Silber">900er Silber</option>
-                      <option value="835er Silber">835er Silber</option>
-                      <option value="800er Silber">800er Silber</option>
-                      <option value="750er Silber">750er Silber</option>
-                      <option value="900er Silber">900er Silber</option>
-                    </select>
-                  </div>
-
-                  <div class="col-md-3">
-                    <label for="validationCustom05" class="form-label">Menge</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
-                  </div>
-
-                  <div class="col-md-3">
-                    <label for="validationCustom05" class="form-label">Kurs</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
-                  </div>
 
 
                   <div class="col-md-6">
                     <label for="validationCustom03" class="form-label">Platin</label>
-                    <select class="form-select" id="inlineFormCustomSelect" name="gold">
+                    <select class="form-select" id="inlineFormCustomSelect" name="platin">
                       <option value="" selected>Bitte auswählen...</option>
                       <option value="999.9er FeinPlatin">999.9er FeinPlatin</option>
                       <option value="925er Platin">925er Platin</option>
@@ -356,44 +327,21 @@ if (!isset($_SESSION["personalId"])) {
 
                   <div class="col-md-3">
                     <label for="validationCustom05" class="form-label">Menge</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
+                    <input type="text" class="form-control" placeholder="Menge in (g) " name="platinMenge">
                   </div>
 
                   <div class="col-md-3">
                     <label for="validationCustom05" class="form-label">Kurs</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
+                    <input type="text" class="form-control" placeholder="Kurs in (€) " name="platinKurs">
                   </div>
 
 
-                  <div class="col-md-6">
-                    <label for="validationCustom03" class="form-label">Platin</label>
-                    <select class="form-select" id="inlineFormCustomSelect" name="gold">
-                      <option value="" selected>Bitte auswählen...</option>
-                      <option value="999.9er FeinPlatin">999.9er FeinPlatin</option>
-                      <option value="925er Platin">925er Platin</option>
-                      <option value="900er Platin">900er Platin</option>
-                      <option value="835er Platin">835er Platin</option>
-                      <option value="800er Platin">800er Platin</option>
-                      <option value="750er Platin">750er Platin</option>
-                      <option value="900er Platin">900er Platin</option>
-                    </select>
-                  </div>
-
-                  <div class="col-md-3">
-                    <label for="validationCustom05" class="form-label">Menge</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
-                  </div>
-
-                  <div class="col-md-3">
-                    <label for="validationCustom05" class="form-label">Kurs</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
-                  </div>
 
 
 
                   <div class="col-md-6">
                     <label for="validationCustom03" class="form-label">Palladium</label>
-                    <select class="form-select" id="inlineFormCustomSelect" name="Palladium">
+                    <select class="form-select" id="inlineFormCustomSelect" name="palladium">
                       <option value="" selected>Bitte auswählen...</option>
                       <option value="999.9er FeinPalladium">999.9er FeinPalladium</option>
                       <option value="925er Palladium">925er Palladium</option>
@@ -407,44 +355,34 @@ if (!isset($_SESSION["personalId"])) {
 
                   <div class="col-md-3">
                     <label for="validationCustom05" class="form-label">Menge</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
+                    <input type="text" class="form-control" placeholder="Menge in (g) " name="palladiumMenge">
                   </div>
 
                   <div class="col-md-3">
                     <label for="validationCustom05" class="form-label">Kurs</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
+                    <input type="text" class="form-control" placeholder="Kurs in (€) " name="palladiumKurs">
                   </div>
 
 
-                  <div class="col-md-6">
-                    <label for="validationCustom03" class="form-label">Palladium</label>
-                    <select class="form-select" id="inlineFormCustomSelect" name="Palladium">
-                      <option value="" selected>Bitte auswählen...</option>
-                      <option value="999.9er FeinPalladium">999.9er FeinPalladium</option>
-                      <option value="925er Palladium">925er Palladium</option>
-                      <option value="900er Palladium">900er Palladium</option>
-                      <option value="835er Palladium">835er Palladium</option>
-                      <option value="800er Palladium">800er Palladium</option>
-                      <option value="750er Palladium">750er Palladium</option>
-                      <option value="900er Palladium">900er Palladium</option>
-                    </select>
-                  </div>
-
-                  <div class="col-md-3">
-                    <label for="validationCustom05" class="form-label">Menge</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
-                  </div>
-
-                  <div class="col-md-3">
-                    <label for="validationCustom05" class="form-label">Kurs</label>
-                    <input type="text" class="form-control" placeholder="Menge in (g) " name="goldMenge" required>
-                  </div>
-
+                  <input type="hidden" name="role" value="<?= $role ?>">
+                  <input type="hidden" name="id" value="<?= $id ?>">
+                  <input type="hidden" name="vorname" value="<?= $vorname ?>">
+                  <input type="hidden" name="nachname" value="<?= $nachname ?>">
+                  <input type="hidden" name="email" value="<?= $email ?>">
+                  <input type="hidden" name="telefonnummer" value="<?= $telefonnummer ?>">
+                  <input type="hidden" name="adresse" value="<?= $adresse ?>">
+                  <input type="hidden" name="plz" value="<?= $plz ?>">
+                  <input type="hidden" name="stadt" value="<?= $stadt ?>">
+                  <input type="hidden" name="auftragNum" value="<?= $auftragNum ?>">
+                  <input type="hidden" name="versandArt" value="<?= $versandArt ?>">
+                  <input type="hidden" name="gesamtBetrag" value="<?= $gesamtBetrag ?>">
+                  <input type="hidden" name="status" value="<?= $status ?>">
 
 
 
                   <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Gutschrift erstellen und abschicken</button>
+                    <button class="btn btn-primary" type="submit" name="gutschriftErstellen">Gutschrift erstellen und
+                      abschicken</button>
                   </div>
 
 

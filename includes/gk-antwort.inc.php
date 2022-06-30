@@ -28,13 +28,13 @@ if (isset($_GET['accept'])) {
     "Ihre Geschaeftkunde Antrag",
     "Ihre Geschaeftkunde Antrag wurde angenommen <br> Ihre Username: $gkUsername. <br> Ihre Passwort: $gkPasswort."
   );
-  header("Location: ../Geshaftkundenliste.php");
+  header("Location: ../Geschäftskunden.php");
   exit();
 } elseif (isset($_GET['decline'])) {
   deleteGK($conn, $gKundenId);
   sendEmail($gkEmail, "Ihre Geschaeftkunde Antrag", "
   Leider Ihre Geschaeftkunde Antrag wurde abgelehnt.
   ");
-  header("Location: ../Geshaftkundenliste.php");
+  header("Location: ../Geschäftskunden.php");
   exit();
 }

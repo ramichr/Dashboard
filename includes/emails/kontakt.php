@@ -21,17 +21,17 @@ function kontakt($vorname, $nachname, $email, $telefonnummer, $betriff, $nachric
   // $mail->Username   = 'smtp@schnur-partner.de';
   // $mail->Password   = 'Benefit15!!';
   $mail->Host       = 'smtp.gmail.com';
-  $mail->Username   = 'investal24.info@gmail.com';
-  $mail->Password   = 'ueiuhxtjeudaoqak';
+  $mail->Username   = 'noreply.investal24@gmail.com';
+  $mail->Password   = 'urhiysejuegkphrb';
   $mail->SMTPSecure = "tls";
   $mail->Port       = 587;
   // $mail->SMTPSecure = "ssl";
   // $mail->Port       = 465; 
 
   //Recipients
-  $mail->setFrom('investal24.info@gmail.com', 'investal24_support');
+  $mail->setFrom('noreply.investal24@gmail.com', 'investal24_support');
   $mail->AddReplyTo($email, $vorname . ' ' . $nachname);
-  $mail->addAddress('investal24.info@gmail.com');
+  $mail->addAddress('noreply.investal24@gmail.com');
 
   //Content
   $mail->isHTML(true);

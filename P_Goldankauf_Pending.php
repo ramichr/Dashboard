@@ -2,7 +2,33 @@
 session_start();
 if (!isset($_SESSION["personalId"])) {
   include './login.php';
-} else { ?>
+} else {
+
+  include "includes/dbh.inc.php";
+
+  $sql1 = "SELECT * FROM `goldankauf_p` AS ga INNER JOIN `gaste` AS g 
+          ON ga.gastUid = g.gastUid  
+          WHERE ga.status = 'pending'";
+  $result1 = mysqli_query($conn, $sql1);
+
+
+  $sql2 = "SELECT * FROM `goldankauf_p` AS ga INNER JOIN `kunden` AS k  
+          ON ga.kundenId = k.kundenId 
+          WHERE ga.status = 'pending'";
+  $result2 = mysqli_query($conn, $sql2);
+
+
+  $sql3 = "SELECT * FROM `goldankauf_p` AS ga INNER JOIN `gKunden` AS gk 
+          ON ga.gKundenId = gk.gKundenId
+          WHERE ga.status = 'pending'";
+  $result3 = mysqli_query($conn, $sql3);
+
+
+
+
+?>
+
+?>
 
 <!doctype html>
 <html lang="DE" class="semi-dark">
@@ -61,34 +87,77 @@ if (!isset($_SESSION["personalId"])) {
                   <tr>
                     <th>Auftrag_ID</th>
                     <th>Versandart</th>
-                    <th>Gesamt Betrag</th>
-                    <th>Kunden_ID</th>
-                    <th>Kunden_Name</th>
+                    <th>Gesamtbetrag</th>
+                    <th>ID</th>
+                    <th>Vorname / Nachname</th>
                     <th>Status</th>
                     <th>Aktion</th>
                   </tr>
 
                 </thead>
                 <tbody>
-
+                  <?php while ($row = mysqli_fetch_assoc($result1)) { ?>
                   <tr>
-                    <td>INV24-673082</td>
-                    <td>Werttransport</td>
-                    <td>12932,80 €</td>
-                    <td>Gast_125</td>
-                    <td>Rami Cheick rouhou</td>
-                    <td><span class="badge bg-light-warning text-warning w-100">Pending</span></td>
+                    <td><?= $row['auftragNum'] ?></td>
+                    <td><?= $row['versandArt'] ?></td>
+                    <td><?= $row['gesamtBetrag'] ?></td>
+                    <td>Gast: <?= $row['gastUid'] ?></td>
+                    <td><?= $row['gastVorname'] . ' / ' . $row['gastNachname'] ?></td>
+                    <td><span class="badge bg-light-warning text-warning w-100"><?= $row['status'] ?></span></td>
 
 
                     <td>
                       <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                        <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                          title="" data-bs-original-title="Bearbeiten" aria-label="Bearbeiten"><i
+                        <a href="auftraggoldbearbeiten.php?role=gast&auftragNum=<?= $row['auftragNum'] ?>&versandArt=<?= $row['versandArt'] ?>&gesamtBetrag=<?= $row['gesamtBetrag'] ?>&id=<?= $row['gastUid'] ?>&vorname=<?= $row['gastVorname'] ?>&nachname=<?= $row['gastNachname'] ?>&email=<?= $row['gastEmail'] ?>&telefonnummer=<?= $row['gastTelefonnummer'] ?>&adresse=<?= $row['gastAdresse'] ?>&plz=<?= $row['gastPlz'] ?>&stadt=<?= $row['gastStadt'] ?>&status=<?= $row['status'] ?>"
+                          class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
+                          data-bs-original-title="Bearbeiten" aria-label="Bearbeiten"><i
                             class="bi bi-pencil-fill"></i></a>
                       </div>
                     </td>
                   </tr>
+                  <?php } ?>
 
+                  <?php while ($row = mysqli_fetch_assoc($result2)) { ?>
+                  <tr>
+                    <td><?= $row['auftragNum'] ?></td>
+                    <td><?= $row['versandArt'] ?></td>
+                    <td><?= $row['gesamtBetrag'] ?></td>
+                    <td>Kunde: <?= $row['kundenId'] ?></td>
+                    <td><?= $row['vorname'] . ' / ' . $row['nachname'] ?></td>
+                    <td><span class="badge bg-light-warning text-warning w-100"><?= $row['status'] ?></span></td>
+
+
+                    <td>
+                      <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                        <a href="auftraggoldbearbeiten.php?role=kunde&auftragNum=<?= $row['auftragNum'] ?>&versandArt=<?= $row['versandArt'] ?>&gesamtBetrag=<?= $row['gesamtBetrag'] ?>&id=<?= $row['kundenId'] ?>&vorname=<?= $row['vorname'] ?>&nachname=<?= $row['nachname'] ?>&email=<?= $row['email'] ?>&telefonnummer=<?= $row['telefonnummer'] ?>&adresse=<?= $row['adresse'] ?>&plz=<?= $row['plz'] ?>&stadt=<?= $row['stadt'] ?>&status=<?= $row['status'] ?>"
+                          class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
+                          data-bs-original-title="Bearbeiten" aria-label="Bearbeiten"><i
+                            class="bi bi-pencil-fill"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <?php } ?>
+
+                  <?php while ($row = mysqli_fetch_assoc($result3)) { ?>
+                  <tr>
+                    <td><?= $row['auftragNum'] ?></td>
+                    <td><?= $row['versandArt'] ?></td>
+                    <td><?= $row['gesamtBetrag'] ?></td>
+                    <td>Geschäftskunde: <?= $row['gKundenId'] ?></td>
+                    <td><?= $row['gkVorname'] . ' / ' . $row['gkNachname'] ?></td>
+                    <td><span class="badge bg-light-warning text-warning w-100"><?= $row['status'] ?></span></td>
+
+
+                    <td>
+                      <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                        <a href="auftraggoldbearbeiten.php?role=gKunde&auftragNum=<?= $row['auftragNum'] ?>&versandArt=<?= $row['versandArt'] ?>&gesamtBetrag=<?= $row['gesamtBetrag'] ?>&id=<?= $row['gKundenId'] ?>&vorname=<?= $row['gkVorname'] ?>&nachname=<?= $row['gkNachname'] ?>&email=<?= $row['gkEmail'] ?>&telefonnummer=<?= $row['gkTelefonnummer'] ?>&adresse=<?= $row['gkAdresse'] ?>&plz=<?= $row['gkPlz'] ?>&stadt=<?= $row['gkStadt'] ?>&status=<?= $row['status'] ?>"
+                          class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
+                          data-bs-original-title="Bearbeiten" aria-label="Bearbeiten"><i
+                            class="bi bi-pencil-fill"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <?php } ?>
 
                 </tbody>
               </table>

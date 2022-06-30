@@ -5,6 +5,9 @@ include "dbh.inc.php";
 
 if (isset($_GET['gutschriftErstellen'])) {
 
+  $role = $_GET['role'];
+  $id = $_GET['id'];
+
   $vorname = $_GET['vorname'];
   $nachname = $_GET['nachname'];
   $email = $_GET['email'];
@@ -49,6 +52,9 @@ if (isset($_GET['gutschriftErstellen'])) {
   updateGoldankaufAnfrage($conn, $auftragNum);
 
   sendEmailGutschriftGoldankauf(
+    $role,
+    $id,
+
     $vorname,
     $nachname,
     $adresse,

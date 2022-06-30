@@ -2,7 +2,15 @@
 session_start();
 if (!isset($_SESSION["personalId"])) {
   include './login.php';
-} else { ?>
+} else {
+
+  include 'includes/dbh.inc.php';
+
+
+  $sql = 'SELECT * FROM `gKunden` WHERE `gkStatus` = "aktiv"';
+  $result = mysqli_query($conn, $sql);
+
+?>
 
 <!doctype html>
 <html lang="de" class="semi-dark">
@@ -64,23 +72,48 @@ if (!isset($_SESSION["personalId"])) {
                 </thead>
                 <tbody>
 
+                  <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+
 
                   <tr>
-                    <td>gk-35743</td>
-                    <td>Hammadi Elloumi</td>
-                    <td>investal24 (GmbH)</td>
-                    <td>+491727898041</td>
-                    <td>elloumiha@investal24.de</td>
-                    <td>Gruitener Str 68, 42327 Wuppertal</td>
+
+                    <td><?= $row['gkUsername'] ?></td>
+                    <td><?= $row['gkVorname'] . ' / ' . $row['gkNachname'] ?></td>
+                    <td><?= $row['gkFirmenname'] . ' (' . $row['gkRechtform'] . ')' ?></td>
+                    <td><?= $row['gkEmail'] ?></td>
+                    <td><?= $row['gkTelefonnummer'] ?></td>
+                    <td><?= $row['gkAdresse'] ?><br><?= $row['gkPlz'] . ' ' . $row['gkStadt'] ?></td>
 
                     <td>
                       <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                        <a href="ProfilGK.php" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                          title="" data-bs-original-title="Views" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                        <form action="ProfilGK.php" method="GET">
+                          <input type="hidden" name="gKundenId" value="<?= $row['gKundenId'] ?>">
+                          <input type="hidden" name="gkUsername" value="<?= $row['gkUsername'] ?>">
+                          <input type="hidden" name="gkPasswort" value="<?= $row['gkPasswort'] ?>">
+                          <input type="hidden" name="gkVorname" value="<?= $row['gkVorname'] ?>">
+                          <input type="hidden" name="gkNachname" value="<?= $row['gkNachname'] ?>">
+                          <input type="hidden" name="gkFirmenname" value="<?= $row['gkFirmenname'] ?>">
+                          <input type="hidden" name="gkRechtform" value="<?= $row['gkRechtform'] ?>">
+                          <input type="hidden" name="gkUmsatzsteur" value="<?= $row['gkUmsatzsteur'] ?>">
+                          <input type="hidden" name="gkSteurnummer" value="<?= $row['gkSteurnummer'] ?>">
+                          <input type="hidden" name="gkAdresse" value="<?= $row['gkAdresse'] ?>">
+                          <input type="hidden" name="gkPlz" value="<?= $row['gkPlz'] ?>">
+                          <input type="hidden" name="gkStadt" value="<?= $row['gkStadt'] ?>">
+                          <input type="hidden" name="gkEmail" value="<?= $row['gkEmail'] ?>">
+                          <input type="hidden" name="gkTelefonnummer" value="<?= $row['gkTelefonnummer'] ?>">
+                          <input type="hidden" name="gkBonusProzent" value="<?= $row['gkBonusProzent'] ?>">
+                          <input type="hidden" name="gkStatus" value="<?= $row['gkStatus'] ?>">
+
+                          <button style="border: none;" type="submit" name="submit" class="text-primary"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Views"
+                            aria-label="Views"><i class="bi bi-eye-fill"></i></button>
+
+                        </form>
                       </div>
                     </td>
                   </tr>
 
+                  <?php } ?>
 
                 </tbody>
 

@@ -28,13 +28,13 @@ if (isset($_GET['accept'])) {
     "Ihre Vermittler Antrag",
     "Ihre Vermittler Antrag wurde angenommen <br> Ihre Username: $vUsername. <br> Ihre Passwort: $vPasswort."
   );
-  header("Location: ../Vermittlerliste.php");
+  header("Location: ../Vemittler.php");
   exit();
 } elseif (isset($_GET['decline'])) {
   deleteV($conn, $vermittlerId);
   sendEmail($vEmail, "Ihre Vermittler Antrag", "
   Leider Ihre Vermittler Antrag wurde abgelehnt.
   ");
-  header("Location: ../Vermittlerliste.php");
+  header("Location: ../Vemittler.php");
   exit();
 }

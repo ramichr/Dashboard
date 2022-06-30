@@ -13,53 +13,29 @@ if (!isset($_SESSION["personalId"])) {
   }
 
   if (isset($_GET['submit'])) {
-    $gKundenId = test_input($_GET['gKundenId']);
-    $gkUsername = test_input($_GET['gkUsername']);
-    $gkPasswort = test_input($_GET['gkPasswort']);
-    $gkVorname = test_input($_GET['gkVorname']);
-    $gkNachname = test_input($_GET['gkNachname']);
-    $gkFirmenname = test_input($_GET['gkFirmenname']);
-    $gkRechtform = test_input($_GET['gkRechtform']);
-    $gkUmsatzsteur = test_input($_GET['gkUmsatzsteur']);
-    $gkSteurnummer = test_input($_GET['gkSteurnummer']);
-    $gkAdresse = test_input($_GET['gkAdresse']);
-    $gkPlz = test_input($_GET['gkPlz']);
-    $gkStadt = test_input($_GET['gkStadt']);
-    $gkEmail = test_input($_GET['gkEmail']);
-    $gkTelefonnummer = test_input($_GET['gkTelefonnummer']);
-    $gkStatus = test_input($_GET['gkStatus']);
-    $gkBonusProzent = test_input($_GET['gkBonusProzent']);
+    $vermittlerId = test_input($_GET['vermittlerId']);
+    $vUsername = test_input($_GET['vUsername']);
+    $vPasswort = test_input($_GET['vPasswort']);
+    $vVorname = test_input($_GET['vVorname']);
+    $vNachname = test_input($_GET['vNachname']);
+    $vFirmenname = test_input($_GET['vFirmenname']);
+    $vRechtform = test_input($_GET['vRechtform']);
+    $vUmsatzsteur = test_input($_GET['vUmsatzsteur']);
+    $vSteurnummer = test_input($_GET['vSteurnummer']);
+    $vAdresse = test_input($_GET['vAdresse']);
+    $vPlz = test_input($_GET['vPlz']);
+    $vStadt = test_input($_GET['vStadt']);
+    $vEmail = test_input($_GET['vEmail']);
+    $vTelefonnummer = test_input($_GET['vTelefonnummer']);
+    $vStatus = test_input($_GET['vStatus']);
+    $vBonusProzent = test_input($_GET['vBonusProzent']);
   }
 
   include "includes/dbh.inc.php";
 
-  $sql = "SELECT `gkAusweis`, `gkFirmenausweis` FROM `gkunden` WHERE gKundenId = '$gKundenId';";
+  $sql = "SELECT `vAusweis`, `vFirmenausweis` FROM `vermittler` WHERE vermittlerId = '$vermittlerId';";
+
   $result = mysqli_query($conn, $sql);
-
-
-  $sql1 = "SELECT * FROM `anlage_plan` AS ap INNER JOIN `rechnung` AS r
-          ON ap.bestellungNum = r.rechnungNum
-          WHERE ap.gKundenId = '$gKundenId';";
-  $result1 = mysqli_query($conn, $sql1);
-
-
-  $sql2 = "SELECT * FROM `goldkonto_plan` AS sp INNER JOIN `rechnung` AS r
-          ON sp.bestellungNum = r.rechnungNum
-          WHERE sp.gKundenId = '$gKundenId';";
-  $result2 = mysqli_query($conn, $sql2);
-
-
-  $sql3 = "SELECT * FROM `shop_bestellung` AS s INNER JOIN `rechnung` AS r 
-          ON s.uberweisungsId = r.rechnungNum
-          INNER JOIN `produkt` AS p
-          ON s.produktId = p.produktId
-          WHERE s.gKundenId = '$gKundenId';";
-  $result3 = mysqli_query($conn, $sql3);
-
-  $sql4 = "SELECT * FROM `rechnung` AS r INNER JOIN `gKunden` AS gk 
-          ON r.gKundenId = gk.gKundenId
-          WHERE gk.gKundenId = '$gKundenId';";
-  $result4 = mysqli_query($conn, $sql4);
 
 ?>
 
@@ -67,7 +43,7 @@ if (!isset($_SESSION["personalId"])) {
 <html lang="de" class="semi-dark">
 
 <?php
-  $title = 'Profil G_Kunden';
+  $title = 'Profil Vermittler';
   include 'layout/head.php'
   ?>
 
@@ -96,7 +72,7 @@ if (!isset($_SESSION["personalId"])) {
                     <ion-icon name="home-outline"></ion-icon>
                   </a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Auftrag G.K:</li>
+                <li class="breadcrumb-item active" aria-current="page">Auftrag Vermittler:</li>
               </ol>
             </nav>
           </div>
@@ -110,8 +86,8 @@ if (!isset($_SESSION["personalId"])) {
               <div class="card-body text-center">
 
                 <div class="mt-4">
-                  <h4 class="mb-1"><?= $gkVorname . ' ' . $gkNachname ?></h4>
-                  <h5 class="mb-0"><?= $gkFirmenname . ' ' . $gkRechtform ?></h5>
+                  <h4 class="mb-1"><?= $vVorname . ' ' . $vNachname ?></h4>
+                  <h5 class="mb-0"><?= $vFirmenname . ' ' . $vRechtform ?></h5>
                 </div>
 
               </div>
@@ -137,7 +113,7 @@ if (!isset($_SESSION["personalId"])) {
                             </svg>
                           </div>
                           <h6 class="mb-0 mt-2">Email: </h6>
-                          <h4 class="mb-0 mt-2"><?= $gkEmail ?></h4>
+                          <h4 class="mb-0 mt-2"><?= $vEmail ?></h4>
                         </div>
                       </div>
                     </div>
@@ -156,7 +132,7 @@ if (!isset($_SESSION["personalId"])) {
                             </svg>
                           </div>
                           <h6 class="mb-0 mt-2">Telefonnummer</h6>
-                          <h4 class="mb-0 mt-2"><?= $gkTelefonnummer ?></h4>
+                          <h4 class="mb-0 mt-2"><?= $vTelefonnummer ?></h4>
                         </div>
                       </div>
                     </div>
@@ -175,8 +151,8 @@ if (!isset($_SESSION["personalId"])) {
                               <line x1="23" y1="8" x2="18" y2="13"></line>
                             </svg>
                           </div>
-                          <h6 class="mb-0 mt-2">G_ID</h6>
-                          <h4 class="mb-0 mt-2"><?= $gKundenId ?></h4>
+                          <h6 class="mb-0 mt-2">V_ID</h6>
+                          <h4 class="mb-0 mt-2"><?= $vermittlerId ?></h4>
                         </div>
                       </div>
                     </div>
@@ -206,7 +182,7 @@ if (!isset($_SESSION["personalId"])) {
                             </svg>
                           </div>
                           <h6 class="mb-0 mt-2">Firma Adresse: </h6>
-                          <h4 class="mb-0 mt-2"><?= $gkAdresse . ", " . $gkPlz . " " . $gkStadt ?></h4>
+                          <h4 class="mb-0 mt-2"><?= $vAdresse . ", " . $vPlz . " " . $vStadt ?></h4>
                         </div>
                       </div>
                     </div>
@@ -225,7 +201,7 @@ if (!isset($_SESSION["personalId"])) {
                             </svg>
                           </div>
                           <h6 class="mb-0 mt-2">Steuernummer</h6>
-                          <h4 class="mb-0 mt-2"><?= $gkSteurnummer ?></h4>
+                          <h4 class="mb-0 mt-2"><?= $vSteurnummer ?></h4>
                         </div>
                       </div>
                     </div>
@@ -244,7 +220,7 @@ if (!isset($_SESSION["personalId"])) {
                             </svg>
                           </div>
                           <h6 class="mb-0 mt-2">USt-IdNr</h6>
-                          <h4 class="mb-0 mt-2"><?= $gkUmsatzsteur ?></h4>
+                          <h4 class="mb-0 mt-2"><?= $vUmsatzsteur ?></h4>
                         </div>
                       </div>
                     </div>
@@ -256,24 +232,24 @@ if (!isset($_SESSION["personalId"])) {
             </div>
           </div>
 
-          <?php if ($gkStatus === "In_Bearbeitung") { ?>
+          <?php if ($vStatus == "In_Bearbeitung") { ?>
 
-          <form action="includes/gk-antwort.inc.php" method="GET">
-            <input type="hidden" name="gKundenId" value="<?= $gKundenId ?>">
-            <input type="hidden" name="gkUsername" value="<?= $gkUsername ?>">
-            <input type="hidden" name="gkPasswort" value="<?= $gkPasswort ?>">
-            <input type="hidden" name="gkVorname" value="<?= $gkVorname ?>">
-            <input type="hidden" name="gkNachname" value="<?= $gkNachname ?>">
-            <input type="hidden" name="gkFirmenname" value="<?= $gkFirmenname ?>">
-            <input type="hidden" name="gkRechtform" value="<?= $gkRechtform ?>">
-            <input type="hidden" name="gkUmsatzsteur" value="<?= $gkUmsatzsteur ?>">
-            <input type="hidden" name="gkSteurnummer" value="<?= $gkSteurnummer ?>">
-            <input type="hidden" name="gkAdresse" value="<?= $gkAdresse ?>">
-            <input type="hidden" name="gkPlz" value="<?= $gkPlz ?>">
-            <input type="hidden" name="gkStadt" value="<?= $gkStadt ?>">
-            <input type="hidden" name="gkEmail" value="<?= $gkEmail ?>">
-            <input type="hidden" name="gkTelefonnummer" value="<?= $gkTelefonnummer ?>">
-            <input type="hidden" name="gkBonusProzent" value="<?= $gkBonusProzent ?>">
+          <form action="includes/v-antwort.inc.php" method="GET">
+            <input type="hidden" name="vermittlerId" value="<?= $vermittlerId ?>">
+            <input type="hidden" name="vUsername" value="<?= $vUsername ?>">
+            <input type="hidden" name="vPasswort" value="<?= $vPasswort ?>">
+            <input type="hidden" name="vVorname" value="<?= $vVorname ?>">
+            <input type="hidden" name="vNachname" value="<?= $vNachname ?>">
+            <input type="hidden" name="vFirmenname" value="<?= $vFirmenname ?>">
+            <input type="hidden" name="vRechtform" value="<?= $vRechtform ?>">
+            <input type="hidden" name="vUmsatzsteur" value="<?= $vUmsatzsteur ?>">
+            <input type="hidden" name="vSteurnummer" value="<?= $vSteurnummer ?>">
+            <input type="hidden" name="vAdresse" value="<?= $vAdresse ?>">
+            <input type="hidden" name="vPlz" value="<?= $vPlz ?>">
+            <input type="hidden" name="vStadt" value="<?= $vStadt ?>">
+            <input type="hidden" name="vEmail" value="<?= $vEmail ?>">
+            <input type="hidden" name="vTelefonnummer" value="<?= $vTelefonnummer ?>">
+            <input type="hidden" name="vBonusProzent" value="<?= $vBonusProzent ?>">
 
             <div class="mb-3">
               <label class="form-label">Bonus hinzufugen</label>
@@ -312,6 +288,8 @@ if (!isset($_SESSION["personalId"])) {
                       </div>
                     </div>
 
+
+
                   </div>
                 </div>
               </div>
@@ -319,19 +297,21 @@ if (!isset($_SESSION["personalId"])) {
 
           </form>
 
-          <?php } else if ($gkStatus === "aktiv") { ?>
+          <?php } else if ($vStatus === "aktiv") {  ?>
+
           <div class="col">
             <div class="card radius-10">
               <div class="card-body text-center">
 
                 <div class="mt-4">
                   <h4 class="mb-1">Bonus</h4>
-                  <h5 class="mb-0"><?= $gkBonusProzent ?></h5>
+                  <h5 class="mb-0"><?= $vBonusProzent ?></h5>
                 </div>
 
               </div>
             </div>
           </div>
+
           <?php } ?>
 
         </div>
@@ -342,9 +322,9 @@ if (!isset($_SESSION["personalId"])) {
 
           <div class="col">
             <div class="card">
-              <a download="ausweis_<?= $gKundenId ?>.jpg"
-                href="data:image;charset=utf8;base64,<?= base64_encode($image['gkAusweis']); ?>">
-                <img src="data:image;charset=utf8;base64,<?= base64_encode($image['gkAusweis']); ?>"
+              <a download="ausweis_<?= $vermittlerId ?>.jpg"
+                href="data:image;charset=utf8;base64,<?= base64_encode($image['vAusweis']); ?>">
+                <img src="data:image;charset=utf8;base64,<?= base64_encode($image['vAusweis']); ?>"
                   class="card-img-top">
               </a>
             </div>
@@ -352,158 +332,23 @@ if (!isset($_SESSION["personalId"])) {
 
           <div class="col">
             <div class="card">
-              <a download="firmenausweis_<?= $gKundenId ?>.jpg"
-                href="data:image;charset=utf8;base64,<?= base64_encode($image['gkFirmenausweis']); ?>">
-                <img src="data:image;charset=utf8;base64,<?= base64_encode($image['gkFirmenausweis']); ?>"
+              <a download="firmenausweis_<?= $vermittlerId ?>.jpg"
+                href="data:image;charset=utf8;base64,<?= base64_encode($image['vFirmenausweis']); ?>">
+                <img src="data:image;charset=utf8;base64,<?= base64_encode($image['vFirmenausweis']); ?>"
                   class="card-img-top">
               </a>
             </div>
           </div>
 
         </div>
-        <?php } ?>
-
-        <?php if ($gkStatus === "aktiv") { ?>
-        <div class="card radius-10">
-          <div class="card-header">
-            <h5 class="mb-0">Aktionen</h5>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h6 class="mb-0">BESTELLUNGEN</h6>
-              <br>
-              <div class="table-responsive">
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
-                  <thead>
-                    <tr>
-                      <th>Bst_ID</th>
-                      <th>Datum</th>
-                      <th>Produkt Name</th>
-                      <th>Status</th>
-                      <th>Aktion</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                    <?php while ($row = mysqli_fetch_assoc($result1)) { ?>
-                    <tr>
-                      <td><?= $row['anlageId'] ?></td>
-                      <td><?= $row['rechnungDatum'] ?></td>
-                      <td>Anlageplan</td>
-                      <td><?= $row['status'] ?></td>
-                      <td>
-                        <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                          <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="" data-bs-original-title="Views" aria-label="Views"><i
-                              class="bi bi-eye-fill"></i></a>
-                          <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="" data-bs-original-title="Delete" aria-label="Delete"><i
-                              class="bi bi-trash-fill"></i></a>
-                        </div>
-                      </td>
-                    </tr>
-                    <?php } ?>
-
-                    <?php while ($row = mysqli_fetch_assoc($result2)) { ?>
-                    <tr>
-                      <td><?= $row['kontoId'] ?></td>
-                      <td><?= $row['rechnungDatum'] ?></td>
-                      <td>Sparplan</td>
-                      <td>pending</td>
-                      <td>
-                        <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                          <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="" data-bs-original-title="Views" aria-label="Views"><i
-                              class="bi bi-eye-fill"></i></a>
-                          <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="" data-bs-original-title="Delete" aria-label="Delete"><i
-                              class="bi bi-trash-fill"></i></a>
-                        </div>
-                      </td>
-                    </tr>
-                    <?php } ?>
-
-                    <?php while ($row = mysqli_fetch_assoc($result3)) { ?>
-                    <tr>
-                      <td><?= $row['shopBestellungId'] ?></td>
-                      <td><?= $row['rechnungDatum'] ?></td>
-                      <td><?= $row['produktName'] ?></td>
-                      <td><?= $row['zahlungsStatus'] ?></td>
-                      <td>
-                        <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                          <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="" data-bs-original-title="Views" aria-label="Views"><i
-                              class="bi bi-eye-fill"></i></a>
-                          <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="" data-bs-original-title="Delete" aria-label="Delete"><i
-                              class="bi bi-trash-fill"></i></a>
-                        </div>
-                      </td>
-                    </tr>
-                    <?php } ?>
-
-                  </tbody>
-
-                </table>
-              </div>
-            </div>
-          </div>
-
-
-
-          <div class="card">
-            <div class="card-body">
-              <h6 class="mb-0">RECHNUNGEN</h6>
-              <br>
-              <div class="table-responsive">
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
-                  <thead>
-                    <tr>
-                      <th>Rechnung Nr.</th>
-                      <th>Rechnungsart</th>
-                      <th>Datum</th>
-                      <th>Gesamtbetrag</th>
-                      <th>Aktion</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-
-                    <?php while ($row = mysqli_fetch_assoc($result4)) { ?>
-                    <tr>
-                      <td><?= $row['rechnungNum'] ?></td>
-                      <td><?= $row['rechnungArt'] ?></td>
-                      <td><?= $row['rechnungDatum'] ?></td>
-                      <td><?= $row['rechnungBetrag'] ?> €</td>
-                      <td>
-                        <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                          <a href="includes/download.inc.php?file=<?= $row['rechnungId'] ?>" target="_blank"
-                            class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
-                            data-bs-original-title="Views" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-
-                          <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="" data-bs-original-title="Delete" aria-label="Delete"><i
-                              class="bi bi-trash-fill"></i></a>
-                        </div>
-                      </td>
-                    </tr>
-                    <?php } ?>
-
-                  </tbody>
-
-                </table>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
+        <!--end row-->
         <?php } ?>
 
       </div>
+      <!-- end page content-->
     </div>
 
-
+    <?php include 'layout/footer.php' ?>
 
   </div>
 

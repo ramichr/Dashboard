@@ -2,7 +2,27 @@
 session_start();
 if (!isset($_SESSION["personalId"])) {
   include './login.php';
-} else { ?>
+} else {
+
+  include "includes/dbh.inc.php";
+
+  $sql1 = "SELECT * FROM `anlage_plan` AS ap INNER JOIN `rechnung` AS r
+          ON ap.bestellungNum = r.rechnungNum";
+  $result1 = mysqli_query($conn, $sql1);
+
+
+  $sql2 = "SELECT * FROM `goldkonto_plan` AS sp INNER JOIN `rechnung` AS r
+          ON sp.bestellungNum = r.rechnungNum";
+  $result2 = mysqli_query($conn, $sql2);
+
+
+  $sql3 = "SELECT * FROM `shop_bestellung` AS s INNER JOIN `rechnung` AS r 
+          ON s.uberweisungsId = r.rechnungNum
+          INNER JOIN `produkt` AS p
+          ON s.produktId = p.produktId";
+  $result3 = mysqli_query($conn, $sql3);
+
+?>
 
 <!doctype html>
 <html lang="de" class="semi-dark">
@@ -63,20 +83,42 @@ if (!isset($_SESSION["personalId"])) {
                   <tr>
                     <th>ID</th>
                     <th>Produkt</th>
-                    <th>Fixirung</th>
+                    <th>Fixierung</th>
                     <th>Gold Summe</th>
 
                   </tr>
                 </thead>
                 <tbody>
-
+                  <?php while ($row = mysqli_fetch_assoc($result1)) { ?>
                   <tr>
-                    <td>002</td>
-                    <td>Anlage plan</td>
-                    <td>26.06.2022 - 16:20</td>
-                    <td>200 Gramm</td>
+                    <td><?= $row['anlageId'] ?></td>
+                    <td>Anlageplan</td>
+                    <td><?= $row['rechnungDatum'] ?></td>
+                    <td><?= $row['betragGoldUmgerchnet'] ?></td>
 
                   </tr>
+                  <?php } ?>
+
+                  <?php while ($row = mysqli_fetch_assoc($result2)) { ?>
+                  <tr>
+                    <td><?= $row['kontoId'] ?></td>
+                    <td>Sparplan</td>
+                    <td><?= $row['rechnungDatum'] ?></td>
+                    <td><?= $row['gesamtInvestGold'] ?></td>
+
+                  </tr>
+                  <?php } ?>
+
+                  <?php while ($row = mysqli_fetch_assoc($result3)) { ?>
+                  <tr>
+                    <td><?= $row['shopBestellungId'] ?></td>
+                    <td><?= $row['produktName'] ?></td>
+                    <td><?= $row['rechnungDatum'] ?></td>
+                    <td><?= $row['menge'] ?> Gramm</td>
+
+                  </tr>
+                  <?php } ?>
+
 
                 </tbody>
 
@@ -91,7 +133,7 @@ if (!isset($_SESSION["personalId"])) {
     </div>
   </div>
 
-  <?php include 'layout/footer.php' ?>
+
 
   </div>
 

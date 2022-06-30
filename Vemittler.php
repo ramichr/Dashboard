@@ -112,9 +112,9 @@ if (!isset($_SESSION["personalId"])) {
                         <input type="hidden" name="vStatus" value="<?= $vermittler['vStatus'] ?>">
 
                         <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                          <button type="submit" name="submit" class="text-warning" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="" data-bs-original-title="Edit" aria-label="Edit"><i
-                              class="bi bi-pencil-fill"></i></button>
+                          <button style="border: none;" type="submit" name="submit" class="text-warning"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Edit"
+                            aria-label="Edit"><i class="bi bi-pencil-fill"></i></button>
                         </div>
                       </form>
                     </td>

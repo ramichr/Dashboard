@@ -63,14 +63,19 @@ function sendEmail($reciever, $subject, $template,)
 function updateGoldankaufAnfrage($conn, $auftragNum)
 {
 
-  $sql = "UPDATE `goldankauf_p` SET `status` = 'inactiv' WHERE auftragNum = '$auftragNum';";
+  $sql = "UPDATE `goldankauf_p` SET `status` = 'paid' WHERE auftragNum = '$auftragNum';";
 
   $result = mysqli_query($conn, $sql);
 
   return $result;
 };
 
+
+
 function sendEmailGutschriftGoldankauf(
+  $role,
+  $id,
+
   $vorname,
   $nachname,
   $adresse,
@@ -162,6 +167,33 @@ function sendEmailGutschriftGoldankauf(
   $mpdf->WriteHTML($html, 2);
   $pdf = $mpdf->Output('', 'S');
 
+  $pdfContent = addslashes($pdf);
+
+
+  if ($role == 'gast') {
+
+    include "dbh.inc.php";
+
+    $sql = "INSERT INTO `rechnung` (rechnungNum,	rechnungBetrag,	rechnungArt,	gastUid,	kundenId,	gKundenId,	rechnungDatum, rechnungDatei	) VALUES (  '$gutschriftNum', '$gesamtPreis',  'Gutschrift',  '$id',  '',  '',  '$gutschriftDatum', '$pdfContent')";
+
+    mysqli_query($conn, $sql);
+  } else if ($role == 'kunde') {
+
+    include "dbh.inc.php";
+
+    $sql = "INSERT INTO `rechnung` (rechnungNum,	rechnungBetrag,	rechnungArt,	gastUid,	kundenId,	gKundenId,	rechnungDatum, rechnungDatei	) VALUES (  '$gutschriftNum', '$gesamtPreis',  'Gutschrift',  '',  '$id',  '',  '$gutschriftDatum', '$pdfContent')";
+
+    mysqli_query($conn, $sql);
+  } else if ($role == 'gKunde') {
+
+    include "dbh.inc.php";
+
+    $sql = "INSERT INTO `rechnung` (rechnungNum,	rechnungBetrag,	rechnungArt,	gastUid,	kundenId,	gKundenId,	rechnungDatum, rechnungDatei	) VALUES (  '$gutschriftNum', '$gesamtPreis',  'Gutschrift',  '',  '',  '$id',  '$gutschriftDatum', '$pdfContent')";
+
+    mysqli_query($conn, $sql);
+  }
+
+
   $email_template = "
   <h2>Gutschrift privat Goldankauf</h2>
   <pre style='font-family: arial;'>
@@ -180,6 +212,6 @@ function sendEmailGutschriftGoldankauf(
     $email_template,
     $pdf,
     'Gutschrift_privat_Goldankauf-' . $vorname . '_' . $nachname . '.pdf',
-    header("Location: ")
+    header("Location: ../P_Goldankauf_Pending.php")
   );
 };

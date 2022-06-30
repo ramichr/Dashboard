@@ -27,8 +27,8 @@ function emailPdf(
   // $mail->SMTPSecure = "tls";
   // $mail->Port       = 587;
   $mail->Host       = 'smtp.gmail.com';
-  $mail->Username   = 'investal24.info@gmail.com';
-  $mail->Password   = 'ueiuhxtjeudaoqak';
+  $mail->Username   = 'noreply.investal24@gmail.com';
+  $mail->Password   = 'urhiysejuegkphrb';
   // $mail->SMTPSecure = "ssl";
   // $mail->Port       = 465;
   $mail->SMTPSecure = "tls";
@@ -36,9 +36,9 @@ function emailPdf(
 
   //Recipients
   // $mail->setFrom('smtp@schnur-partner.de', 'investal24');
-  $mail->setFrom('investal24.info@gmail.com', 'investal24');
+  $mail->setFrom('noreply.investal24@gmail.com', 'investal24');
   $mail->addAddress($reciever);
-  $mail->addAddress('investal24.info@gmail.com');
+  $mail->addAddress('noreply.investal24@gmail.com');
 
   // Attachement
   $mail->addStringAttachment($attachment, $attachmentName);
