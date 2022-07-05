@@ -2,13 +2,13 @@
 
 if (isset($_POST['add'])) {
   $produktUid = uniqid();
-  $produktName = $_POST['produktName'];
-  $beschreibung = $_POST['beschreibung'];
-  $referenz = $_POST['referenz'];
-  $inventor = $_POST['inventor'];
-  $gewicht = $_POST['gewicht'];
-  $kategorie = $_POST['kategorie'];
-  $zusatzInfos = $_POST['zusatzInfos'];
+  $produktName = htmlentities($_POST['produktName']);
+  $beschreibung = htmlentities($_POST['beschreibung']);
+  $referenz = htmlentities($_POST['referenz']);
+  $inventor = htmlentities($_POST['inventor']);
+  $gewicht = htmlentities($_POST['gewicht']);
+  $kategorie = htmlentities($_POST['kategorie']);
+  $zusatzInfos = htmlentities($_POST['zusatzInfos']);
 
 
   include "dbh.inc.php";

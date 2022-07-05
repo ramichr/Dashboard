@@ -21,21 +21,16 @@ function emailPdf(
   $mail->SMTPDebug = 0;
   $mail->isSMTP();
   $mail->SMTPAuth   = true;
-  // $mail->Host       = 'smtp.office365.com';
-  // $mail->Username   = 'smtp@schnur-partner.de';
-  // $mail->Password   = 'Benefit15!!';
-  // $mail->SMTPSecure = "tls";
-  // $mail->Port       = 587;
+
   $mail->Host       = 'smtp.gmail.com';
   $mail->Username   = 'noreply.investal24@gmail.com';
   $mail->Password   = 'urhiysejuegkphrb';
-  // $mail->SMTPSecure = "ssl";
-  // $mail->Port       = 465;
+
   $mail->SMTPSecure = "tls";
   $mail->Port       = 587;
 
   //Recipients
-  // $mail->setFrom('smtp@schnur-partner.de', 'investal24');
+
   $mail->setFrom('noreply.investal24@gmail.com', 'investal24');
   $mail->addAddress($reciever);
   $mail->addAddress('noreply.investal24@gmail.com');

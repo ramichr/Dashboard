@@ -252,7 +252,7 @@ if (!isset($_SESSION["personalId"])) {
 
 
         <div class="col-xl-12 mx-auto">
-          <h6 class="mb-0 text-uppercase">Rechnung Vorbereiten</h6>
+          <h6 class="mb-0 text-uppercase">Analyse Vorbereiten</h6>
           <hr />
           <div class="card">
             <div class="card-body">

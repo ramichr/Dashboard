@@ -17,16 +17,13 @@ function kontakt($vorname, $nachname, $email, $telefonnummer, $betriff, $nachric
   $mail->isSMTP();
   $mail->SMTPAuth   = true;
 
-  // $mail->Host       = 'smtp.office365.com';
-  // $mail->Username   = 'smtp@schnur-partner.de';
-  // $mail->Password   = 'Benefit15!!';
+
   $mail->Host       = 'smtp.gmail.com';
   $mail->Username   = 'noreply.investal24@gmail.com';
   $mail->Password   = 'urhiysejuegkphrb';
   $mail->SMTPSecure = "tls";
   $mail->Port       = 587;
-  // $mail->SMTPSecure = "ssl";
-  // $mail->Port       = 465; 
+
 
   //Recipients
   $mail->setFrom('noreply.investal24@gmail.com', 'investal24_support');

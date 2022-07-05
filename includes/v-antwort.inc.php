@@ -3,21 +3,21 @@
 include 'dbh.inc.php';
 include 'functions.inc.php';
 
-$vermittlerId = test_input($_GET['vermittlerId']);
-$vUsername = test_input($_GET['vUsername']);
-$vPasswort = test_input($_GET['vPasswort']);
-$vVorname = test_input($_GET['vVorname']);
-$vNachname = test_input($_GET['vNachname']);
-$vFirmenname = test_input($_GET['vFirmenname']);
-$vRechtform = test_input($_GET['vRechtform']);
-$vUmsatzsteur = test_input($_GET['vUmsatzsteur']);
-$vSteurnummer = test_input($_GET['vSteurnummer']);
-$vAdresse = test_input($_GET['vAdresse']);
-$vPlz = test_input($_GET['vPlz']);
-$vStadt = test_input($_GET['vStadt']);
-$vEmail = test_input($_GET['vEmail']);
-$vTelefonnummer = test_input($_GET['vTelefonnummer']);
-$BonusProzent = test_input($_GET['BonusProzent']);
+$vermittlerId = htmlentities($_GET['vermittlerId']);
+$vUsername = htmlentities($_GET['vUsername']);
+$vPasswort = htmlentities($_GET['vPasswort']);
+$vVorname = htmlentities($_GET['vVorname']);
+$vNachname = htmlentities($_GET['vNachname']);
+$vFirmenname = htmlentities($_GET['vFirmenname']);
+$vRechtform = htmlentities($_GET['vRechtform']);
+$vUmsatzsteur = htmlentities($_GET['vUmsatzsteur']);
+$vSteurnummer = htmlentities($_GET['vSteurnummer']);
+$vAdresse = htmlentities($_GET['vAdresse']);
+$vPlz = htmlentities($_GET['vPlz']);
+$vStadt = htmlentities($_GET['vStadt']);
+$vEmail = htmlentities($_GET['vEmail']);
+$vTelefonnummer = htmlentities($_GET['vTelefonnummer']);
+$BonusProzent = htmlentities($_GET['BonusProzent']);
 
 
 

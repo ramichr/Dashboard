@@ -4,14 +4,15 @@ include "dbh.inc.php";
 
 if (isset($_POST['update'])) {
 
-  $produktId = $_POST['produktId'];
-  $produktName = $_POST['produktName'];
-  $kategorie = $_POST['kategorie'];
-  $gewicht = $_POST['gewicht'];
-  $referenz = $_POST['referenz'];
-  $inventor = $_POST['inventor'];
-  $zusatzInfos = $_POST['zusatzInfos'];
-  $beschreibung = $_POST['beschreibung'];
+
+  $produktId = htmlentities($_POST['produktId']);
+  $produktName = htmlentities($_POST['produktName']);
+  $kategorie = htmlentities($_POST['kategorie']);
+  $gewicht = htmlentities($_POST['gewicht']);
+  $referenz = htmlentities($_POST['referenz']);
+  $inventor = htmlentities($_POST['inventor']);
+  $zusatzInfos = htmlentities($_POST['zusatzInfos']);
+  $beschreibung = htmlentities($_POST['beschreibung']);
 
 
 

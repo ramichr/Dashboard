@@ -23,11 +23,6 @@ if (!isset($_SESSION["personalId"])) {
           WHERE ga.status = 'pending'";
   $result3 = mysqli_query($conn, $sql3);
 
-
-
-
-?>
-
 ?>
 
 <!doctype html>

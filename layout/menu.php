@@ -151,6 +151,15 @@
       </ul>
     </li>
 
+    <li class="menu-label">INVESTAL24</li>
+    <li>
+      <a href="wahren.php">
+        <div class="parent-icon">
+          <i class="bi bi-handbag"></i>
+        </div>
+        <div class="menu-title">Warenbestand</div>
+      </a>
+
 
   </ul>
   <!--end navigation-->

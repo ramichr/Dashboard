@@ -2,116 +2,186 @@
 session_start();
 if (!isset($_SESSION["personalId"])) {
   include './login.php';
-} else { ?>
+} else {
 
-  <!doctype html>
-  <html lang="DE" class="semi-dark">
+  include "includes/dbh.inc.php";
 
-  <?php
+  $sql1 = "SELECT ga.* , g.* , r.rechnungDatei , r.rechnungId FROM `goldankauf_p` AS ga INNER JOIN `gaste` AS g 
+          ON ga.gastUid = g.gastUid 
+          INNER JOIN `rechnung` AS r
+          ON r.gastUid = g.gastUid 
+          WHERE ga.status = 'paid' AND r.rechnungArt = 'Gutschrift'";
+  $result1 = mysqli_query($conn, $sql1);
+
+
+  $sql2 = "SELECT ga.* , k.* , r.rechnungDatei , r.rechnungId FROM `goldankauf_p` AS ga INNER JOIN `kunden` AS k  
+          ON ga.kundenId = k.kundenId 
+          INNER JOIN `rechnung` AS r
+          ON r.kundenId = k.kundenId
+          WHERE ga.status = 'paid' AND r.rechnungArt = 'Gutschrift'";
+  $result2 = mysqli_query($conn, $sql2);
+
+
+  $sql3 = "SELECT ga.* , gk.* , r.rechnungDatei , r.rechnungId FROM `goldankauf_p` AS ga INNER JOIN `gKunden` AS gk 
+          ON ga.gKundenId = gk.gKundenId
+          INNER JOIN `rechnung` AS r
+          ON r.gKundenId = gk.gKundenId
+          WHERE ga.status = 'paid' AND r.rechnungArt = 'Gutschrift'";
+  $result3 = mysqli_query($conn, $sql3);
+
+?>
+
+<!doctype html>
+<html lang="DE" class="semi-dark">
+
+<?php
   $title = 'Privatgoldankauf (Fertig)';
   include 'layout/head.php'
   ?>
 
 
-  <body>
+<body>
 
 
-    <!--start wrapper-->
-    <div class="wrapper">
-      <?php include 'layout/menu.php' ?>
+  <!--start wrapper-->
+  <div class="wrapper">
+    <?php include 'layout/menu.php' ?>
 
-      <?php include 'layout/header.php' ?>
+    <?php include 'layout/header.php' ?>
 
-      <div class="page-content-wrapper">
-        <!-- start page content-->
-        <div class="page-content">
+    <div class="page-content-wrapper">
+      <!-- start page content-->
+      <div class="page-content">
 
-          <!--start breadcrumb-->
-          <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Dashboard</div>
-            <div class="ps-3">
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0 p-0 align-items-center">
-                  <li class="breadcrumb-item"><a href="javascript:;">
-                      <ion-icon name="home-outline"></ion-icon>
-                    </a>
-                  </li>
-                  <li class="breadcrumb-item active" aria-current="page">Paid liste Privatgoldankauf</li>
-                </ol>
-              </nav>
-            </div>
-
+        <!--start breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+          <div class="breadcrumb-title pe-3">Dashboard</div>
+          <div class="ps-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb mb-0 p-0 align-items-center">
+                <li class="breadcrumb-item"><a href="javascript:;">
+                    <ion-icon name="home-outline"></ion-icon>
+                  </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Paid liste Privatgoldankauf</li>
+              </ol>
+            </nav>
           </div>
-          <!--end breadcrumb-->
-
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex align-items-center">
-                <h5 class="mb-0">Privatgoldankauf liste Paid </h5>
-                <form class="ms-auto position-relative">
-                  <div class="position-absolute top-50 translate-middle-y search-icon px-3">
-                    <ion-icon name="search-sharp"></ion-icon>
-                  </div>
-                  <input class="form-control ps-5" type="text" placeholder="search">
-                </form>
-              </div>
-              <div class="table-responsive mt-3">
-                <table class="table align-middle mb-0">
-                  <thead class="table-light">
-                    <tr>
-                      <th>Auftrag_ID</th>
-                      <th>Versandart</th>
-                      <th>Gesamt Betrag</th>
-                      <th>Kunden_ID</th>
-                      <th>Kunden_Name</th>
-                      <th>Status</th>
-                      <th>Aktion</th>
-                    </tr>
-
-                  </thead>
-                  <tbody>
-
-                    <tr>
-                      <td>INV24-673082</td>
-                      <td>Werttransport</td>
-                      <td>12932,80 €</td>
-                      <td>Gast_125</td>
-                      <td>Rami Cheick rouhou</td>
-                      <td><span class="badge bg-light-success text-success w-100">Paid</span></td>
-
-
-                      <td>
-                        <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                          <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Views" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                        </div>
-                      </td>
-                    </tr>
-
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-
 
         </div>
-        <!-- end page content-->
+        <!--end breadcrumb-->
+
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <h5 class="mb-0">Privatgoldankauf liste Paid </h5>
+              <form class="ms-auto position-relative">
+                <div class="position-absolute top-50 translate-middle-y search-icon px-3">
+                  <ion-icon name="search-sharp"></ion-icon>
+                </div>
+                <input class="form-control ps-5" type="text" placeholder="search">
+              </form>
+            </div>
+            <div class="table-responsive mt-3">
+              <table class="table align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Auftrag_ID</th>
+                    <th>Versandart</th>
+                    <th>Gesamtbetrag</th>
+                    <th>ID</th>
+                    <th>Vorname / Nachname</th>
+                    <th>Status</th>
+                    <th>Aktion</th>
+                  </tr>
+
+                </thead>
+                <tbody>
+                  <?php while ($row = mysqli_fetch_assoc($result1)) { ?>
+                  <tr>
+                    <td><?= $row['auftragNum'] ?></td>
+                    <td><?= $row['versandArt'] ?></td>
+                    <td><?= $row['gesamtBetrag'] ?></td>
+                    <td>Gast: <?= $row['gastUid'] ?></td>
+                    <td><?= $row['gastVorname'] . ' / ' . $row['gastNachname'] ?></td>
+                    <td><span class="badge bg-light-success text-success w-100"><?= $row['status'] ?></span></td>
+                    </td>
+
+
+                    <td>
+                      <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                        <a href="includes/download.inc.php?file=<?= $row['rechnungId'] ?>" target="_blank"
+                          class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
+                          data-bs-original-title="Bearbeiten" aria-label="Bearbeiten"><i class="bi bi-eye-fill"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <?php } ?>
+
+                  <?php while ($row = mysqli_fetch_assoc($result2)) { ?>
+                  <tr>
+                    <td><?= $row['auftragNum'] ?></td>
+                    <td><?= $row['versandArt'] ?></td>
+                    <td><?= $row['gesamtBetrag'] ?></td>
+                    <td>Kunde: <?= $row['kundenId'] ?></td>
+                    <td><?= $row['vorname'] . ' / ' . $row['nachname'] ?></td>
+                    <td><span class="badge bg-light-success text-success w-100"><?= $row['status'] ?></span></td>
+
+
+                    <td>
+                      <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                        <a href="includes/download.inc.php?file=<?= $row['rechnungId'] ?>" target="_blank"
+                          class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
+                          data-bs-original-title="Bearbeiten" aria-label="Bearbeiten"><i class="bi bi-eye-fill"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <?php } ?>
+
+                  <?php while ($row = mysqli_fetch_assoc($result3)) { ?>
+                  <tr>
+                    <td><?= $row['auftragNum'] ?></td>
+                    <td><?= $row['versandArt'] ?></td>
+                    <td><?= $row['gesamtBetrag'] ?></td>
+                    <td>Geschäftskunde: <?= $row['gKundenId'] ?></td>
+                    <td><?= $row['gkVorname'] . ' / ' . $row['gkNachname'] ?></td>
+                    <td><span class="badge bg-light-success text-success w-100"><?= $row['status'] ?></span></td>
+
+
+                    <td>
+                      <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                        <a href="includes/download.inc.php?file=<?= $row['rechnungId'] ?>" target="_blank"
+                          class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
+                          data-bs-original-title="Bearbeiten" aria-label="Bearbeiten"><i class="bi bi-eye-fill"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <?php } ?>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+
       </div>
+      <!-- end page content-->
     </div>
+  </div>
 
-    <?php include 'layout/footer.php' ?>
+  <?php include 'layout/footer.php' ?>
 
-    </div>
+  </div>
 
-    <?php include 'layout/script.php' ?>
+  <?php include 'layout/script.php' ?>
 
-    </div>
+  </div>
 
 
-  </body>
+</body>
 
-  </html>
+</html>
 
 <?php } ?>
