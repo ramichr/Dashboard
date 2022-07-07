@@ -89,18 +89,18 @@ if (!isset($_SESSION["personalId"])) {
                   </tr>
                 </thead>
                 <tbody>
-                  <?php while ($row = mysqli_fetch_assoc($result1)) { ?>
+                  <?php while ($gast = mysqli_fetch_assoc($result1)) { ?>
                   <tr>
-                    <td><?= $row['rechnungId'] ?></td>
-                    <td>Gast: <?= $row['gastUid'] ?></td>
-                    <td><?= $row['rechnungNum'] ?></td>
-                    <td><?= $row['gastVorname'] . ' / ' . $row['gastNachname'] ?></td>
-                    <td><?= $row['rechnungArt'] ?></td>
-                    <td><?= $row['rechnungDatum'] ?></td>
-                    <td><?= $row['rechnungBetrag'] ?> €</td>
+                    <td><?= $gast['rechnungId'] ?></td>
+                    <td>Gast: <?= $gast['gastUid'] ?></td>
+                    <td><?= $gast['rechnungNum'] ?></td>
+                    <td><?= $gast['gastVorname'] . ' / ' . $gast['gastNachname'] ?></td>
+                    <td><?= $gast['rechnungArt'] ?></td>
+                    <td><?= $gast['rechnungDatum'] ?></td>
+                    <td><?= $gast['rechnungBetrag'] ?> €</td>
                     <td>
                       <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                        <a href="includes/download.inc.php?file=<?= $row['rechnungId'] ?>" target="_blank"
+                        <a href="includes/download.inc.php?file=<?= $gast['rechnungId'] ?>" target="_blank"
                           class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
                           data-bs-original-title="Views" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
 
@@ -112,18 +112,18 @@ if (!isset($_SESSION["personalId"])) {
                   </tr>
                   <?php } ?>
 
-                  <?php while ($row = mysqli_fetch_assoc($result2)) { ?>
+                  <?php while ($kunde = mysqli_fetch_assoc($result2)) { ?>
                   <tr>
-                    <td><?= $row['rechnungId'] ?></td>
-                    <td>Kunde: <?= $row['kundenId'] ?></td>
-                    <td><?= $row['rechnungNum'] ?></td>
-                    <td><?= $row['vorname'] . ' / ' . $row['nachname'] ?></td>
-                    <td><?= $row['rechnungArt'] ?></td>
-                    <td><?= $row['rechnungDatum'] ?></td>
-                    <td><?= $row['rechnungBetrag'] ?> €</td>
+                    <td><?= $kunde['rechnungId'] ?></td>
+                    <td>Kunde: <?= $kunde['kundenId'] ?></td>
+                    <td><?= $kunde['rechnungNum'] ?></td>
+                    <td><?= $kunde['vorname'] . ' / ' . $kunde['nachname'] ?></td>
+                    <td><?= $kunde['rechnungArt'] ?></td>
+                    <td><?= $kunde['rechnungDatum'] ?></td>
+                    <td><?= $kunde['rechnungBetrag'] ?> €</td>
                     <td>
                       <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                        <a href="includes/download.inc.php?file=<?= $row['rechnungId'] ?>" target="_blank"
+                        <a href="includes/download.inc.php?file=<?= $kunde['rechnungId'] ?>" target="_blank"
                           class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
                           data-bs-original-title="Views" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
 
@@ -135,18 +135,18 @@ if (!isset($_SESSION["personalId"])) {
                   </tr>
                   <?php } ?>
 
-                  <?php while ($row = mysqli_fetch_assoc($result3)) { ?>
+                  <?php while ($gKunde = mysqli_fetch_assoc($result3)) { ?>
                   <tr>
-                    <td><?= $row['rechnungId'] ?></td>
-                    <td>Geschäftkunde: <?= $row['gKundenId'] ?></td>
-                    <td><?= $row['rechnungNum'] ?></td>
-                    <td><?= $row['gkVorname'] . ' / ' . $row['gkNachname'] ?></td>
-                    <td><?= $row['rechnungArt'] ?></td>
-                    <td><?= $row['rechnungDatum'] ?></td>
-                    <td><?= $row['rechnungBetrag'] ?> €</td>
+                    <td><?= $gKunde['rechnungId'] ?></td>
+                    <td>Geschäftkunde: <?= $gKunde['gKundenId'] ?></td>
+                    <td><?= $gKunde['rechnungNum'] ?></td>
+                    <td><?= $gKunde['gkVorname'] . ' / ' . $gKunde['gkNachname'] ?></td>
+                    <td><?= $gKunde['rechnungArt'] ?></td>
+                    <td><?= $gKunde['rechnungDatum'] ?></td>
+                    <td><?= $gKunde['rechnungBetrag'] ?> €</td>
                     <td>
                       <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                        <a href="includes/download.inc.php?file=<?= $row['rechnungId'] ?>" target="_blank"
+                        <a href="includes/download.inc.php?file=<?= $gKunde['rechnungId'] ?>" target="_blank"
                           class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
                           data-bs-original-title="Views" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
 
