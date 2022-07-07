@@ -67,6 +67,8 @@ if (!isset($_SESSION["personalId"])) {
                       <label class="form-label">Produkt referenz *</label>
                       <input name="referenz" type="text" class="form-control" placeholder="S-0252" required>
                     </div>
+
+
                     <div class="col-6">
                       <label class="form-label">Gewicht *</label>
                       <input name="gewicht" type="text" class="form-control" placeholder="0.0 g" required>
@@ -76,14 +78,26 @@ if (!isset($_SESSION["personalId"])) {
                       <input name="inventor" type="text" class="form-control" placeholder="Inventor.." required>
                     </div>
 
+
+                    <div class="col-6">
+                      <label class="form-label">Versandkosten *</label>
+                      <input name="versandkosten" type="text" class="form-control" placeholder="4.99 €" required>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Handleraufschlag *</label>
+                      <input name="handleraufschlag" type="text" class="form-control" placeholder="10 %" required>
+                    </div>
+
+
                     <div class="col-12">
                       <label class="form-label">Kategorie *</label>
                       <select name="kategorie" class="form-control default-select" required>
                         <option value="">bitte wählen</option>
-                        <option value="GOLD">Gold</option>
-                        <option value="SILBER">Silber</option>
-                        <option value="PLATIN">Platin</option>
-                        <option value="PALLADIUM">Palladium</option>
+                        <option value="GOLDBARREN">GOLD</option>
+                        <option value="SILBERBARREN">SILBER</option>
+                        <option value="PLATIN">PLATIN</option>
+                        <option value="PALLADIUM">PALLADIUM</option>
+                        <option value="GOLDMÜNZEN">GOLDMÜNZEN</option>
                       </select>
                     </div>
                   </div>

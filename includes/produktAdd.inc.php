@@ -8,17 +8,18 @@ if (isset($_POST['add'])) {
   $inventor = htmlentities($_POST['inventor']);
   $gewicht = htmlentities($_POST['gewicht']);
   $kategorie = htmlentities($_POST['kategorie']);
+  $versandkosten = htmlentities($_POST['versandkosten']);
+  $handleraufschlag = htmlentities($_POST['handleraufschlag']);
   $zusatzInfos = htmlentities($_POST['zusatzInfos']);
 
 
   include "dbh.inc.php";
 
-  $sql1 = "INSERT INTO `produkt` (`produktUid`,	`produktName`	, `beschreibung` ,	`referenz` , `inventor` , `gewicht`	,`kategorie` ,`zusatzInfos`	) VALUES ('$produktUid','$produktName','$beschreibung', '$referenz', '$inventor','$gewicht', '$kategorie', '$zusatzInfos')";
-
+  $sql1 = "INSERT INTO `produkt` (`produktUid`,	`produktName`	, `beschreibung` ,	`referenz` , `inventor` , `gewicht`	,`kategorie` , `versandkosten`, `handleraufschlag` , `zusatzInfos`	) VALUES ('$produktUid','$produktName','$beschreibung', '$referenz', '$inventor','$gewicht', '$kategorie', '$versandkosten' , '$handleraufschlag' , '$zusatzInfos')";
   mysqli_query($conn, $sql1);
 
-  $sql2 = "SELECT produktId FROM `produkt` WHERE `produktUid` = '$produktUid'";
 
+  $sql2 = "SELECT produktId FROM `produkt` WHERE `produktUid` = '$produktUid'";
   $result = mysqli_query($conn, $sql2);
 
   $row = mysqli_fetch_assoc($result);

@@ -83,7 +83,7 @@ if (!isset($_SESSION["personalId"])) {
                             <input name="kategorie" class="form-control form-control-lg mb-3" type="text"
                               value="<?= $produkt['kategorie'] ?>" aria-label=".form-control-lg example">
 
-                            <h6>Gewicht :</h6>
+                            <h6>Gewicht (in Gramm):</h6>
                             <input name="gewicht" class="form-control form-control-lg mb-3" type="text"
                               value="<?= $produkt['gewicht'] ?>" aria-label=".form-control-lg example">
 
@@ -94,6 +94,15 @@ if (!isset($_SESSION["personalId"])) {
                             <h6>Inventor :</h6>
                             <input name="inventor" class="form-control form-control-lg mb-3" type="text"
                               value="<?= $produkt['inventor'] ?>" aria-label=".form-control-lg example">
+
+                            <h6 class="form-label">Versandkosten (in €):</h6>
+                            <input name="versandkosten" class="form-control form-control-lg mb-3" type="text"
+                              value="<?= $produkt['versandkosten'] ?>" aria-label=".form-control-lg example">
+
+                            <h6 class="form-label">Handleraufschlag (in %):</h6>
+                            <input name="handleraufschlag" class="form-control form-control-lg mb-3" type="text"
+                              value="<?= $produkt['handleraufschlag'] ?>" aria-label=".form-control-lg example">
+
 
                             <h6>Zusatzinformationen :</h6>
                             <textarea name="zusatzInfos" class="form-control form-control-lg mb-3" type="text"
