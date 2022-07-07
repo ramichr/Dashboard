@@ -89,7 +89,9 @@ if (!isset($_SESSION["personalId"])) {
                   </tr>
                 </thead>
                 <tbody>
-                  <?php while ($gast = mysqli_fetch_assoc($result1)) { ?>
+                  <?php
+                    if (mysqli_num_rows($result1) > 0) {
+                      while ($gast = mysqli_fetch_assoc($result1)) { ?>
                   <tr>
                     <td><?= $gast['rechnungId'] ?></td>
                     <td>Gast: <?= $gast['gastUid'] ?></td>
@@ -110,9 +112,12 @@ if (!isset($_SESSION["personalId"])) {
                       </div>
                     </td>
                   </tr>
-                  <?php } ?>
+                  <?php }
+                    } ?>
 
-                  <?php while ($kunde = mysqli_fetch_assoc($result2)) { ?>
+                  <?php
+                    if (mysqli_num_rows($result2) > 0) {
+                      while ($kunde = mysqli_fetch_assoc($result2)) { ?>
                   <tr>
                     <td><?= $kunde['rechnungId'] ?></td>
                     <td>Kunde: <?= $kunde['kundenId'] ?></td>
@@ -133,9 +138,12 @@ if (!isset($_SESSION["personalId"])) {
                       </div>
                     </td>
                   </tr>
-                  <?php } ?>
+                  <?php }
+                    } ?>
 
-                  <?php while ($gKunde = mysqli_fetch_assoc($result3)) { ?>
+                  <?php
+                    if (mysqli_num_rows($result3) > 0) {
+                      while ($gKunde = mysqli_fetch_assoc($result3)) { ?>
                   <tr>
                     <td><?= $gKunde['rechnungId'] ?></td>
                     <td>Geschäftkunde: <?= $gKunde['gKundenId'] ?></td>
@@ -156,7 +164,8 @@ if (!isset($_SESSION["personalId"])) {
                       </div>
                     </td>
                   </tr>
-                  <?php } ?>
+                  <?php }
+                    } ?>
                 </tbody>
 
               </table>
