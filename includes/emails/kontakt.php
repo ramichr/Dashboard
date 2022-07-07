@@ -8,8 +8,14 @@ require_once './PHPmailer/Exception.php';
 require_once './PHPmailer/PHPMailer.php';
 require_once './PHPmailer/SMTP.php';
 
+require_once './phpdotenv/vendor/autoload.php';
+
 function kontakt($vorname, $nachname, $email, $telefonnummer, $betriff, $nachricht)
 {
+
+  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+  $dotenv->load();
+
   $mail = new PHPMailer(true);
 
   //Server settings
@@ -19,16 +25,16 @@ function kontakt($vorname, $nachname, $email, $telefonnummer, $betriff, $nachric
 
 
   $mail->Host       = 'smtp.gmail.com';
-  $mail->Username   = 'noreply.investal24@gmail.com';
-  $mail->Password   = 'urhiysejuegkphrb';
+  $mail->Username   = $_ENV['USERNAME'];
+  $mail->Password   = $_ENV['PASSWORD'];
   $mail->SMTPSecure = "tls";
   $mail->Port       = 587;
 
 
   //Recipients
-  $mail->setFrom('noreply.investal24@gmail.com', 'investal24_support');
+  $mail->setFrom($_ENV['USERNAME'], 'investal24_support');
   $mail->AddReplyTo($email, $vorname . ' ' . $nachname);
-  $mail->addAddress('noreply.investal24@gmail.com');
+  $mail->addAddress($_ENV['USERNAME']);
 
   //Content
   $mail->isHTML(true);

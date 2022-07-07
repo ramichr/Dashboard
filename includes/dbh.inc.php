@@ -1,9 +1,15 @@
 <?php
 
-$serverName = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dnName = "investal_24";
+require_once __DIR__ . '/phpdotenv/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$serverName = $_ENV['SERVERNAME'];
+$dbUsername = $_ENV['DBUSERNAME'];
+$dbPassword = $_ENV['DBPASSWORD'];
+$dnName = $_ENV['DBNAME'];
+
 
 $conn = mysqli_connect($serverName, $dbUsername, $dbPassword, $dnName);
 

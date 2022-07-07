@@ -7,6 +7,8 @@ require_once './PHPmailer/Exception.php';
 require_once './PHPmailer/PHPMailer.php';
 require_once './PHPmailer/SMTP.php';
 
+require_once './phpdotenv/vendor/autoload.php';
+
 function emailPdf(
   $reciever,
   $subject,
@@ -15,6 +17,10 @@ function emailPdf(
   $attachmentName,
   $page
 ) {
+
+  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+  $dotenv->load();
+
   $mail = new PHPMailer(true);
 
   //Server settings
@@ -23,17 +29,16 @@ function emailPdf(
   $mail->SMTPAuth   = true;
 
   $mail->Host       = 'smtp.gmail.com';
-  $mail->Username   = 'noreply.investal24@gmail.com';
-  $mail->Password   = 'urhiysejuegkphrb';
-
+  $mail->Username   = $_ENV['USERNAME'];
+  $mail->Password   = $_ENV['PASSWORD'];
   $mail->SMTPSecure = "tls";
   $mail->Port       = 587;
 
   //Recipients
 
-  $mail->setFrom('noreply.investal24@gmail.com', 'investal24');
+  $mail->setFrom($_ENV['USERNAME'], 'investal24');
   $mail->addAddress($reciever);
-  $mail->addAddress('noreply.investal24@gmail.com');
+  $mail->addAddress($_ENV['USERNAME']);
 
   // Attachement
   $mail->addStringAttachment($attachment, $attachmentName);
