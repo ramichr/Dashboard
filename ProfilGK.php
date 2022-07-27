@@ -276,14 +276,14 @@ if (!isset($_SESSION["personalId"])) {
             <input type="hidden" name="gkBonusProzent" value="<?= $gkBonusProzent ?>">
 
             <div class="mb-3">
-              <label class="form-label">Bonus hinzufugen</label>
+              <label class="form-label">Marge hinzufugen</label>
               <div class="input-group">
 
                 <select class="form-select single-select" id="inputGroupSelect03"
                   aria-label="Example select with button addon" name="BonusProzent">
-                  <option value="10 %" selected>10 % </option>
-                  <option value="20 %">20 % </option>
-                  <option value="30 %">30 % </option>
+                  <option value="10" selected>10 % </option>
+                  <option value="20">20 % </option>
+                  <option value="30">30 % </option>
 
                 </select>
               </div>
@@ -325,7 +325,7 @@ if (!isset($_SESSION["personalId"])) {
               <div class="card-body text-center">
 
                 <div class="mt-4">
-                  <h4 class="mb-1">Bonus</h4>
+                  <h4 class="mb-1">Marge</h4>
                   <h5 class="mb-0"><?= $gkBonusProzent ?></h5>
                 </div>
 

@@ -85,7 +85,8 @@ function goldAnkfGutschriftFile(
         </tr>
         <tr align='center'>
           <td>
-            <div style='font-size: 14px;font-weight: bold;'>Versandart: " . $versandArt . " </div>
+            <div style='font-size: 14px;font-weight: bold;'>Versandart: " . $versandArt .
+    " </div>
           </td>
         </tr>
         </table>
@@ -100,34 +101,54 @@ function goldAnkfGutschriftFile(
           <td bordercolor='#ccc' bgcolor='#f2f2f2' style='font-size:12px;'><strong>Summe (€)</strong></td>
     
           </tr>
-        <tr style='display:none;'><td colspan='*'><tr>
+        <tr style='display:none;'><td colspan='*'>";
 
+  if (!empty($gold) && !empty($goldMenge) && !empty($goldKurs) && !empty($goldSumme)) {
+    $file .=
+      "<tr> 
   <td valign='top' style='font-size:12px;'>" . $gold . "</td>
   <td valign='top' style='font-size:12px;'>" . $goldMenge . "</td>
   <td valign='top' style='font-size:12px;'>" . $goldKurs . "</td>
   <td valign='top' style='font-size:12px;'>" . $goldSumme . "</td>
+</tr>  ";
+  };
 
-  </tr><tr>
+  if (!empty($silber) && !empty($silberMenge) && !empty($silberKurs) && !empty($silberSumme)) {
+    $file .=
+      "<tr>
 
   <td valign='top' style='font-size:12px;'>" . $silber . "</td>
   <td valign='top' style='font-size:12px;'>" . $silberMenge . "</td>
   <td valign='top' style='font-size:12px;'>" . $silberKurs . "</td>
   <td valign='top' style='font-size:12px;'>" . $silberSumme . "</td>
 
-  </tr><tr>
+  </tr> ";
+  };
+
+  if (!empty($platin) && !empty($platinMenge) && !empty($platinKurs) && !empty($platinSumme)) {
+    $file .=
+      "<tr>
 
   <td valign='top' style='font-size:12px;'>" . $platin . "</td>
   <td valign='top' style='font-size:12px;'>" . $platinMenge . "</td>
   <td valign='top' style='font-size:12px;'>" . $platinKurs . "</td>
   <td valign='top' style='font-size:12px;'>" . $platinSumme . "</td>
 
-  </tr><tr>
+  </tr>";
+  };
+
+  if (!empty($palladium) && !empty($palladiumMenge) && !empty($palladiumKurs) && !empty($palladiumSumme)) {
+    $file .=
+      "<tr>
   <td valign='top' style='font-size:12px;'>" . $palladium . "</td>
   <td valign='top' style='font-size:12px;'>" . $palladiumMenge . "</td>
   <td valign='top' style='font-size:12px;'>" . $palladiumKurs . "</td>
   <td valign='top' style='font-size:12px;'>" . $palladiumSumme . "</td>
 
-  </tr><tr>
+  </tr>";
+  };
+
+  $file .= "<tr>
 
   <td valign='top' style='font-size:12px;'>&nbsp;</td>
   <td valign='top' style='font-size:12px;'>&nbsp;</td>

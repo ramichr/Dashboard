@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if (!isset($_SESSION["personalId"])) {
   include './login.php';
 } else {
@@ -167,7 +168,7 @@ if (!isset($_SESSION["personalId"])) {
     </div>
   </div>
 
-  <?php include 'layout/footer.php' ?>
+  <!-- <?php include 'layout/footer.php' ?> -->
 
   </div>
 

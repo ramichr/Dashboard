@@ -258,6 +258,7 @@ if (!isset($_SESSION["personalId"])) {
             <div class="card-body">
               <div class="p-4 border rounded">
                 <form action="includes/goldAnkfRechnung.inc.php" method="GET" class="row g-3 needs-validation">
+                  <!-- <form action="includes/test.inc.php" method="GET" class="row g-3 needs-validation"> -->
 
                   <div class="col-md-6">
                     <label for="validationCustom03" class="form-label">Gold</label>
